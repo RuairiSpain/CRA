@@ -18,10 +18,7 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-
 // Action Creators
 export function increment() {
-  return {
-    type: INCREMENT
-  };
+  return {type: INCREMENT};
 }

@@ -34,7 +34,6 @@ export default function info(state = initialState, action = {}) {
   }
 }
 
-
 // Action Creators
 export function isLoaded(globalState) {
   return globalState.info && globalState.info.loaded;
@@ -42,7 +41,9 @@ export function isLoaded(globalState) {
 
 export function load() {
   return {
-    types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
+    types: [
+      LOAD, LOAD_SUCCESS, LOAD_FAIL
+    ],
     promise: (client) => client.get('/loadInfo')
   };
 }

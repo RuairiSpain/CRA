@@ -1,4 +1,3 @@
-
 // Actions
 const LOAD = 'redux-example/auth/LOAD';
 const LOAD_SUCCESS = 'redux-example/auth/LOAD_SUCCESS';
@@ -13,7 +12,6 @@ const LOGOUT_FAIL = 'redux-example/auth/LOGOUT_FAIL';
 const initialState = {
   loaded: false
 };
-
 
 // Reducer
 export default function reducer(state = initialState, action = {}) {
@@ -77,7 +75,6 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-
 // Action Creators
 export function isLoaded(globalState) {
   return globalState.auth && globalState.auth.loaded;
@@ -85,14 +82,18 @@ export function isLoaded(globalState) {
 
 export function load() {
   return {
-    types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
+    types: [
+      LOAD, LOAD_SUCCESS, LOAD_FAIL
+    ],
     promise: (client) => client.get('/loadAuth')
   };
 }
 
 export function login(name) {
   return {
-    types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
+    types: [
+      LOGIN, LOGIN_SUCCESS, LOGIN_FAIL
+    ],
     promise: (client) => client.post('/login', {
       data: {
         name: name
@@ -103,7 +104,9 @@ export function login(name) {
 
 export function logout() {
   return {
-    types: [LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAIL],
+    types: [
+      LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAIL
+    ],
     promise: (client) => client.get('/logout')
   };
 }
