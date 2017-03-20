@@ -1,0 +1,16 @@
+  <ListGroupItem>
+    <div className="basket-item-name">{name}
+      <span className="basket-item-offer">
+        {offer}
+      </span>
+      <div className="basket-item-remove">
+        <Button bsStyle="default" onClick={() => removeProduct(name)}>X
+        </Button>
+      </div>
+    </div>
+    <div className="basket-item-price">
+      {quantity}
+      &nbsp;&nbsp;* &nbsp; &pound;{price.toFixed(2)}
+      &nbsp;&nbsp; = &nbsp; {rowTotal.toFixed(2)}</div>
+
+  </ListGroupItem>

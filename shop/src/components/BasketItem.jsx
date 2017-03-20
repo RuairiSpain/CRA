@@ -1,56 +1,40 @@
-import React, {PropTypes, Component} from 'react'
-import { connect } from 'react-redux'
+import React, {PropTypes} from 'react';
+import {ListGroupItem, Button, Badge} from 'react-bootstrap';
 
-
-class BasketItem extends Component {
-  static propTypes = {
-    addProduct: PropTypes.func,
-    name: PropTypes.string,
-    quantity: PropTypes.number,
-    price: PropTypes.number,
-    offer: PropTypes.string
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.handleClick = this
-      .handleClick
-      .bind(this);
-  }
-
-  handleClick(e) {
-    e.preventDefault();
-    this
-      .props
-      .addProduct(e.target.value);
-  }
-
-  render() {
-    const {name, quantity, price, offer} = this.props;
-    return (
-      <div onClick={this.handleClick}>
-        <div>
-          {name} {offer}
-        </div>
-        <div>{quantity} * &pound;{price.toFixed(2)}</div>
-        <div>X </div>
+const BasketItem = ({
+  name,
+  quantity,
+  price,
+  offer,
+  rowTotal,
+  removeProduct
+}) => (
+  <ListGroupItem>
+    <div className="basket-item-name">{name}
+      <span className="basket-item-offer">
+        {offer}
+      </span>
+      <div className="basket-item-remove">
+        <Button bsStyle="default" onClick={() => removeProduct(name)}>X
+        </Button>
       </div>
+    </div>
+    <div className="basket-item-price">
+      {quantity}
+      &nbsp;&nbsp;* &nbsp; &pound;{price.toFixed(2)}
+      &nbsp;&nbsp; = &nbsp; {rowTotal.toFixed(2)}</div>
 
-    )
-  }
+  </ListGroupItem>
+
+);
+
+BasketItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  quantity: PropTypes.number.isRequired,
+  price: PropTypes.number.isRequired,
+  offer: PropTypes.string.isRequired,
+  rowTotal: PropTypes.number.isRequired,
+  removeProduct: PropTypes.func.isRequired
 }
 
-const lookup = (state, name) => state.products.find( x => x.name = name);
-
-const mapStateToProps = (state, ownProps ) => {
-  console.log(state, ownProps.name )
-  return {
-    price: lookup(state, ownProps.name).price,
-    offer: !!lookup(state, ownProps.name).discount ? '*' : ''
-}}
-
-
-export default connect(
-  mapStateToProps
-)(BasketItem)
+export default BasketItem;

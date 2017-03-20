@@ -1,39 +1,51 @@
-import React, {PropTypes, Component} from 'react'
-import { connect } from 'react-redux'
-import { addProduct, removeProduct } from '../reducers'
+import React, {PropTypes} from 'react';
+import {Button, Col, Thumbnail} from 'react-bootstrap';
 
-class ProductTile extends Component {
-  static propTypes = {
-    name: PropTypes.string,
-    price: PropTypes.number,
-    offer: PropTypes.string,
-    addProduct: PropTypes.func.isRequired,
-    removeProduct: PropTypes.func.isRequired
-  }
+const ProductTile = ({
+  name,
+  price,
+  inventory,
+  imageUrl,
+  inBasket,
+  addProduct,
+  decrementProduct
+}) => (
+  <Col xs={12} md={6} lg={3}>
+    <Thumbnail src={imageUrl} alt={name} className="product-tile-thumb">
+      <h3>{name}</h3>
+      <p>&pound; {price.toFixed(2)}</p>
+      <p>{inventory > 0
+          ? 'In Stock (' + inventory + ')'
+          : 'OUT OF STOCK'}</p>
+      <p>
+        <Button
+          bsStyle="primary"
+          bsSize="large"
+          className="product-tile-button"
+          onClick={() => addProduct(name)}>
+          +
+        </Button>
+        <Button
+          bsStyle="info"
+          bsSize="large"
+          className="product-tile-button"
+          onClick={() => decrementProduct(name)}
+          disabled={!!inBasket}>
+          -
+        </Button>
+      </p>
+    </Thumbnail>
+  </Col>
+)
 
-  render() {
-    const {name, price, offer, addProduct, removeProduct} = this.props;
-    return (
-      <div >
-        <div>
-          {name} {offer}
-        </div>
-        <div>
-          &pound; {price.toFixed(2)} </div>
-        <button onClick={ () => addProduct(name) }>Add</button>
-        <button onClick={ () => removeProduct(name)}>Remove</button>
-      </div>
-
-    )
-  }
+ProductTile.propTypes = {
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  inventory: PropTypes.number,
+  imageUrl: PropTypes.string,
+  inBasket: PropTypes.bool.isRequired,
+  addProduct: PropTypes.func.isRequired,
+  decrementProduct: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => ({
-  state: state.products
-})
-
-
-export default connect(
-  mapStateToProps,
-  { addProduct, removeProduct }
-)(ProductTile)
+export default ProductTile;

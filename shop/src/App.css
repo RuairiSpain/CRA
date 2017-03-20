@@ -1,1 +1,39 @@
+  .product-tile {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    margin:5px}
+  .product-tile-name {
+    font-size: 2em;
+    font-weight: bold}
+  .btn.product-tile-button {
+    padding: 10px 22px;
+    margin-right: 10px}
 
+  .basket-item-name {
+    font-size: 2em;
+  }
+  .basket-item-name > div,
+  .basket-item-offer > div
+   {
+     display: inline;
+  }
+  .basket-item-offer {
+    font-size: 0.5em;
+    margin-left: 1.2em;
+  }
+
+  .basket-item-price {
+    text-align: right;
+    display: flex;
+    flex-direction: row-reverse;
+    font-size: 2em;
+  }
+
+  .basket-item-remove {
+    float:right;
+    width:20px;
+    font-size: 0.5em;
+    margin-right: 10px
+
+  }

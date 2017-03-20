@@ -14,10 +14,6 @@ const basketItem = (state, action) => {
         name: action.name,
         quantity: action.quantity
       });
-    case UPDATE_ITEM:
-      if(state.name !== action.name)
-            return state;
-      return { ...state, quantity: state.quantity + action.quantity };
     default:
       return state;
   }
@@ -28,7 +24,13 @@ const basketItems = (state = initialState, action) => {
     case ADD_ITEM:
       return [...state, basketItem(undefined, action)];
     case UPDATE_ITEM:
-      return state.map( item =>  basketItem(item, action));
+        const updatedItems = state.map(item => {
+        if(item.name === action.name){
+          return { ...item, quantity: item.quantity + action.quantity }
+        }
+        return item
+      })
+      return updatedItems
     case REMOVE_ITEM:
       return state.filter(item => item.name !== action.name);
     case CLEAR_ITEMS:
@@ -62,9 +64,13 @@ export const updateProduct = (name, quantity = 1) => (dispatch) => {
 export const decrementProduct = (name) => (dispatch, getState) => {
   const {basket} = getState()
   const existingItem = basket.find(item => item.name === name);
-    if(!!existingItem){
-      updateProduct(name, existingItem.quantity - 1);
-    }
+    if(!!existingItem && existingItem.quantity <= 1){
+      dispatch({type: REMOVE_ITEM, name});
+  }
+  else if(!!existingItem){
+    dispatch({type: UPDATE_ITEM, name, quantity: - 1});
+  }
+
 }
 
 export const removeProduct = (name) => (dispatch) => {
@@ -72,7 +78,6 @@ export const removeProduct = (name) => (dispatch) => {
 }
 
 export const clearProducts = () => ({type: CLEAR_ITEMS});
-
 
 export const getProducts = ()  => (dispatch, getState) => {
   const {products} = getState();
