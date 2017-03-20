@@ -1,0 +1,13 @@
+[
+  {"id": 1, "name": "Apple", "price": 0.25},
+  {"id": 2, "name": "Orange", "price": 0.30},
+  {"id": 3, "name": "Banana", "price": 0.15},
+  {"id": 4, "name": "Papaya", "price": 0.50,     "discount": {
+      "volume": {
+        "buy": 3,
+        "pay": 2,
+        "notice": "Buy 3 for the price of 2",
+        "recommendationNotice": "Product suggestion: Add an extra Papaya for FREE!"
+      }
+    }}
+]
