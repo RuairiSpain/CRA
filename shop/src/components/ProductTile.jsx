@@ -14,15 +14,16 @@ const ProductTile = ({
     <Thumbnail src={imageUrl} alt={name} className="product-tile-thumb">
       <h3>{name}</h3>
       <p>&pound; {price.toFixed(2)}</p>
-      <p>{inventory > 0
-          ? 'In Stock (' + inventory + ')'
-          : 'OUT OF STOCK'}</p>
+      <p>{inventory <= 0
+          ? 'OUT OF STOCK'
+          : ''}</p>
       <p>
         <Button
           bsStyle="primary"
           bsSize="large"
           className="product-tile-button"
-          onClick={() => addProduct(name)}>
+          onClick={() => addProduct(name)}
+          disabled={inventory <= 0}>
           +
         </Button>
         <Button

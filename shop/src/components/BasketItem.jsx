@@ -24,7 +24,10 @@ const BasketItem = ({
     }}>{quantity}</td>
     <td>&pound;{rowTotal.toFixed(2)}</td>
     <td>
-      <Button bsStyle="danger" onClick={() => removeProduct(name)}>X</Button>
+      <Button
+        bsStyle="danger"
+        onClick={() => removeProduct(name)}
+        className="no-print">X</Button>
     </td>
   </tr>
 );

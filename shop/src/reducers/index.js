@@ -12,6 +12,7 @@ export const getAllProducts = state => fromProducts.getAllProducts();
 export const addProduct = fromBaskets.addProduct;
 export const removeProduct = fromBaskets.removeProduct;
 export const decrementProduct = fromBaskets.decrementProduct;
+export const clearProducts = fromBaskets.clearProducts;
 //Discounting API
 export const discountedTotal = fromBaskets.discountedTotal;
 export const calculateBasketTotal = fromBaskets.calculateBasketTotal;
