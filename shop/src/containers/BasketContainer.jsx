@@ -1,16 +1,11 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {PageHeader, Button, Col, Row, ListGroup} from 'react-bootstrap';
-
-import ProductTileContainer from '../containers/ProductTileContainer';
-import BasketItemContainer from '../containers/BasketItemContainer';
-//import {Basket as BasketModel} from '../model/Basket';
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {PageHeader, Button, Col, Row} from 'react-bootstrap'
+import {calculateBasketTotal, uniqueCount} from '../reducers'
+import ProductTileContainer from '../containers/ProductTileContainer'
+import BasketTable from '../components/BasketTable'
 
 class BasketContainer extends Component {
-
-  static defaultProps = {
-    products: []
-  }
 
   constructor(props) {
     super(props)
@@ -21,28 +16,10 @@ class BasketContainer extends Component {
 
   }
 
-  renderBasket() {
-    return !!this.props.basket
-      ? this
-        .props
-        .basket
-        .map(item => <ListGroup><BasketItemContainer key={'basket-' + item.name} {...item}/>
-        </ListGroup>)
-      : "<span>Click products to add to basket.</span>";
-
-  }
-
-  renderProductsTiles() {
-    //create JSX for array of products in inventory
-    return this
-      .props
-      .products
-      .map(item => <ProductTileContainer key={'product-' + item.id} {...item}/>);
-  }
-
   handleCheckOut() {}
 
   render() {
+    const {basket, products, paymentTotal, uniqueCount} = this.props;
     return (
       <div>
         <PageHeader>Fruit Basket &nbsp;
@@ -51,13 +28,17 @@ class BasketContainer extends Component {
         </PageHeader>
         <Row>
           <Col xs={12} md={8}>
-            <h4>Choose a Product</h4>
-            {this.renderProductsTiles()}
+            <h4>Choose Products</h4>
+            {products.map(item => <ProductTileContainer key={'product-' + item.name} {...item}/>)}
           </Col>
           <Col xs={12} md={4}>
             <h4>Basket</h4>
             <Button bsStyle="success" bsSize="large" block onClick={this.handleCheckOut()}>Checkout</Button>
-            <br/> {this.renderBasket()}
+            <br/>
+            <BasketTable
+              basket={basket}
+              paymentTotal={paymentTotal}
+              uniqueCount={uniqueCount}/>
           </Col>
 
         </Row>
@@ -68,7 +49,12 @@ class BasketContainer extends Component {
 
 // map state to props and add extra props useing reducer selectors
 function mapStateToProps(state) {
-  return {products: state.products, basket: state.basket, uniqueCount: state.basket.uniqueCount, total: state.basket.total, length: state.basket.length};
+  return {
+    products: state.products,
+    basket: state.basket,
+    uniqueCount: uniqueCount(state.basket) || 0,
+    paymentTotal: calculateBasketTotal(state) || 0.0
+  };
 }
 
-export default connect(mapStateToProps)(BasketContainer);
+export default connect(mapStateToProps, {calculateBasketTotal, uniqueCount})(BasketContainer);

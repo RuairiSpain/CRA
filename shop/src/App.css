@@ -13,14 +13,9 @@
   .basket-item-name {
     font-size: 2em;
   }
-  .basket-item-name > div,
-  .basket-item-offer > div
-   {
-     display: inline;
-  }
+
   .basket-item-offer {
-    font-size: 0.5em;
-    margin-left: 1.2em;
+    margin-left: 0.2em;
   }
 
   .basket-item-price {

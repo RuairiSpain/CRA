@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`About changes the class when hovered 1`] = `
-<div>
-  About
-</div>
-`;

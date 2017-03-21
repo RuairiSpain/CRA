@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import {ListGroupItem, Button, Badge} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 
 const BasketItem = ({
   name,
@@ -9,23 +9,24 @@ const BasketItem = ({
   rowTotal,
   removeProduct
 }) => (
-  <ListGroupItem>
-    <div className="basket-item-name">{name}
+
+  <tr>
+    <td>{name}
       <span className="basket-item-offer">
-        {offer}
+        {offer
+          ? '*'
+          : ''}
       </span>
-      <div className="basket-item-remove">
-        <Button bsStyle="default" onClick={() => removeProduct(name)}>X
-        </Button>
-      </div>
-    </div>
-    <div className="basket-item-price">
-      {quantity}
-      &nbsp;&nbsp;* &nbsp; &pound;{price.toFixed(2)}
-      &nbsp;&nbsp; = &nbsp; {rowTotal.toFixed(2)}</div>
-
-  </ListGroupItem>
-
+    </td>
+    <td>&pound;{price.toFixed(2)}</td>
+    <td style={{
+      textAlign: "center"
+    }}>{quantity}</td>
+    <td>&pound;{rowTotal.toFixed(2)}</td>
+    <td>
+      <Button bsStyle="danger" onClick={() => removeProduct(name)}>X</Button>
+    </td>
+  </tr>
 );
 
 BasketItem.propTypes = {
